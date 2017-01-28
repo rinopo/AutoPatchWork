@@ -385,19 +385,23 @@ function get_manifest(callback) {
 function init_css() {
   var url = 'css/AutoPatchWork.css';
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', url, false);
+  xhr.open('GET', url, true);
+  xhr.onload = function() {
+    AutoPatchWork.save_css(xhr.responseText);
+  };
   xhr.send(null);
-  AutoPatchWork.save_css(xhr.responseText);
 }
 function init_barcss() {
   var url = 'css/AutoPatchWork.bar.css';
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', url, false);
+  xhr.open('GET', url, true);
+  xhr.onload = function() {
+    AutoPatchWork.barcss = xhr.responseText;
+  };
   xhr.send(null);
-  AutoPatchWork.barcss = xhr.responseText;
 }
 function UpdateSiteinfo(callback, error_back, force) {
-  var sso = 'http://ss-o.net/json/wedataAutoPagerizeSITEINFO.json';
+  var sso = 'http://os0x.heteml.jp/ss-onet/json/wedataAutoPagerizeSITEINFO.json';
   var wedata = 'http://wedata.net/databases/AutoPagerize/items.json';
   var url = force ? wedata : sso;
   var xhr = new XMLHttpRequest();
